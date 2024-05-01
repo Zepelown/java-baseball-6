@@ -2,15 +2,17 @@ package baseball.model;
 
 import baseball.service.RandomNumberGenerator;
 
+import java.util.List;
+
 public class BaseballGame {
     private RandomNumberGenerator randomNumberGenerator = new RandomNumberGenerator();
-    private OpponentBaseBallNumbers opponentBaseBallNumbers;
+    private OpponentBaseBallNumbers opponentBaseBallNumbers = setOpponentBall();
 
-    public BaseballGame(){
+    public BaseballGameResult isEnd(List<BaseballNumber> userBaseballNumbers){
+        return opponentBaseBallNumbers.compareBetweenUserBaseballNumbers(userBaseballNumbers);
     }
 
-
-    public void setOpponentBall(){
-        opponentBaseBallNumbers = new OpponentBaseBallNumbers(randomNumberGenerator.generateRandomNumber());
+    private OpponentBaseBallNumbers setOpponentBall(){
+        return opponentBaseBallNumbers = new OpponentBaseBallNumbers(randomNumberGenerator.generateRandomNumber());
     }
 }

@@ -1,6 +1,8 @@
 package baseball.controller;
 
 import baseball.model.BaseballGame;
+import baseball.model.BaseballGameResult;
+import baseball.model.BaseballNumber;
 import baseball.model.OpponentBaseBallNumbers;
 import baseball.service.InputValidator;
 import baseball.service.RandomNumberGenerator;
@@ -8,6 +10,8 @@ import baseball.view.InputView;
 import baseball.view.OutputView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BaseballGameManager {
     private BaseballGame baseballGame = new BaseballGame();
@@ -21,17 +25,20 @@ public class BaseballGameManager {
     }
 
     public void startGame() {
+        BaseballGameResult baseballGameResult = new BaseballGameResult(0,0);
         outputView.printStartMessage();
-        readUserBaseballNumbers();
+        do {
+            readUserBaseballNumbers();
+        } while(!baseballGameResult.isWin());
     }
-    public void readUserBaseballNumbers() {
+    public List<BaseballNumber> readUserBaseballNumbers() {
+        List<BaseballNumber> userBaseballNumbers = new ArrayList<>();
         try {
-            inputValidator.validateNumbers(inputView.readNumbers());
+            userBaseballNumbers = inputValidator.validateNumbers(inputView.readNumbers());
         } catch (IllegalStateException e) {
             System.out.println("잘못된 입력입니다.");
             readUserBaseballNumbers();
         }
+        return userBaseballNumbers;
     }
-
-
 }

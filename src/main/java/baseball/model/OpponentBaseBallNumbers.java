@@ -4,16 +4,23 @@ import java.util.List;
 
 public class OpponentBaseBallNumbers {
 
-    private List<BaseballNumber> baseballNumbers;
-    public OpponentBaseBallNumbers(List<BaseballNumber> baseballNumbers) {
-        this.baseballNumbers = baseballNumbers;
+    private List<BaseballNumber> opponentBaseballNumbers;
+    public OpponentBaseBallNumbers(List<BaseballNumber> opponentBaseballNumbers) {
+        this.opponentBaseballNumbers = opponentBaseballNumbers;
     }
 
-    //TODO : 결과 도출 로직 작성
-    public boolean isCorrect(List<BaseballNumber> userBaseballNumbers){
-        for (int i = 0; i < baseballNumbers.size(); i++){
-
+    public BaseballGameResult compareBetweenUserBaseballNumbers(List<BaseballNumber> userBaseballNumbers){
+        int ballCount = 0;
+        int strikeCount = 0;
+        for (int i = 0; i < userBaseballNumbers.size(); i++){
+            if (userBaseballNumbers.get(i) == opponentBaseballNumbers.get(i)){
+                strikeCount++;
+                continue;
+            }
+            if (opponentBaseballNumbers.contains(userBaseballNumbers.get(i))){
+                ballCount++;
+            }
         }
-        return false;
+        return new BaseballGameResult(ballCount,strikeCount);
     }
 }
